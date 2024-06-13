@@ -1,7 +1,7 @@
 import os
 
 import agentops
-from crewai import Crew, Task
+from crewai import Crew
 from dotenv import load_dotenv
 
 from agents import EmployeeAgents
