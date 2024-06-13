@@ -20,7 +20,7 @@ class EmployeeTasks:
     def qa_task(self, agent):
         return Task(
             description=f"""
-            Validate the python code and make sure the code does this.
+            Validate the python code and make sure the code does this task.
 
             Task: {self.task}
 
