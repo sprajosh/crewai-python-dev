@@ -25,7 +25,7 @@ chromadb==0.5.0
 click==8.1.7
 cohere==5.5.7
 coloredlogs==15.0.1
-crewai @ git+https://github.com/AgentOps-AI/crewAI.git@fa9a42cd891cafe288fe7c73a802fe484f721e1f
+crewai @ git+https://github.com/AgentOps-AI/crewAI.git
 dataclasses-json==0.6.7
 decorator==5.1.1
 deepdiff==7.0.1

@@ -1,52 +1,30 @@
+import os
+
 import agentops
 from crewai import Crew, Task
+from dotenv import load_dotenv
 
 from agents import EmployeeAgents
+from tasks import EmployeeTasks
+
+load_dotenv()
+
+
+AGENTOPS_API_KEY = os.environ["AGENTOPS_API_KEY"]
 
 
 class CodeEngine:
     def run(self, task):
         agents = EmployeeAgents()
+        tasks = EmployeeTasks(task)
 
         coder = agents.coder()
         manager = agents.manager()
         qa_engineer = agents.qa_engineer()
 
-        coder_task = Task(
-            description=f"""
-            Task: {task}
-
-            Note: If you push code that doesn't work to production, you will lose your job.
-            But if you write bug free code, you will be rewarded handsomely.
-            """,
-            agent=coder,
-            expected_output="A numerical answer.",
-        )
-        qa_task = Task(
-            description=f"""
-            Validate the python code and make sure the code does this.
-
-            Task: {task}
-
-            Note: If you allow code that doesn't work to go out to production,
-            you will lose your job. But if you find all bugs, you will be rewarded handsomely.
-            """,
-            agent=coder,
-            expected_output="A numerical answer.",
-        )
-
-        manager_task = Task(
-            description=f"""
-            Make sure your coder and qa_engineer are doing the right thing. 
-            If not, ask them to redo the task.
-
-            Task: {task}
-
-            Note: If you allow bad code to go out on production, you will lost your job
-            """,
-            agent=coder,
-            expected_output="A numerical answer.",
-        )
+        coder_task = tasks.coder_task(coder)
+        qa_task = tasks.qa_task(qa_engineer)
+        manager_task = tasks.manager_task(manager)
 
         crew = Crew(
             agents=[coder, manager, qa_engineer],
@@ -59,10 +37,11 @@ class CodeEngine:
 
 if __name__ == "__main__":
     # task = input("What task do you want to get done today?")
-    task = "Given a postfix expression, the task is to write a python program to evaluate the postfix expression."
+    task = "Given a postfix expression, the task is to write a python program to evaluate the postfix expression. \
+    Donot take more than 1 chance at this."
 
-    agentops.init()
+    agentops.init(AGENTOPS_API_KEY)
     code_engine = CodeEngine()
     result = code_engine.run(task)
-
+    agentops.end_session("Success")
     print(result)
