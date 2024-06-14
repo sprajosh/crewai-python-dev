@@ -9,12 +9,22 @@ from tasks import EmployeeTasks
 
 load_dotenv()
 
-
 AGENTOPS_API_KEY = os.environ["AGENTOPS_API_KEY"]
 
 
 class CodeEngine:
-    def run(self, task):
+    """A class to run a code evaluation engine using different employee agents."""
+
+    def run(self, task: str) -> str:
+        """
+        Execute the code evaluation process with the given task.
+
+        Args:
+            task (str): The task description to be assigned to agents.
+
+        Returns:
+            str: The result of the crew's task execution.
+        """
         agents = EmployeeAgents()
         tasks = EmployeeTasks(task)
 
@@ -35,13 +45,20 @@ class CodeEngine:
         return crew.kickoff()
 
 
-if __name__ == "__main__":
-    # task = input("What task do you want to get done today?")
-    task = "Given a postfix expression, the task is to write a python program to evaluate the postfix expression. \
-    Donot take more than 1 chance at this."
+def main():
+    """Main function to initialize the code engine and run the task."""
+    task = (
+        "Given a postfix expression, the task is to write a python program to evaluate the postfix expression. "
+        "Do not take more than 1 chance at this."
+    )
 
     agentops.init(AGENTOPS_API_KEY)
+
     code_engine = CodeEngine()
     result = code_engine.run(task)
     agentops.end_session("Success")
     print(result)
+
+
+if __name__ == "__main__":
+    main()
