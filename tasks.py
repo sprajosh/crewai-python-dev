@@ -32,6 +32,11 @@ class EmployeeTasks:
             description=f"""
             Task: {self.task}
 
+            You can consult your co-worker "manager" if you have doubts.
+            You can consult co-worker "qa engineer" to verify if your code works fine.
+
+            ALWAYS use "co-worker" and NOT "coworker"
+
             Note: If you push code that doesn't work to production, you will lose your job.
             But if you write bug-free code, you will be rewarded handsomely.
             """,
@@ -54,6 +59,11 @@ class EmployeeTasks:
             Validate the Python code and make sure the code performs the task correctly.
 
             Task: {self.task}
+
+            You should provide proper test cases to your co-worker "coder"
+            You should consult co-worker "manager" to make sure what you are doing is correct.
+
+            ALWAYS use "co-worker" and NOT "coworker"
 
             Note: If you allow code that doesn't work to go out to production,
             you will lose your job. But if you find all bugs, you will be rewarded handsomely.
@@ -78,6 +88,11 @@ class EmployeeTasks:
             If not, ask them to redo the task.
 
             Task: {self.task}
+
+            You should guide your co-worker "coder" to write the best code and adhere to best practices and the best algorithms.
+            You should guide your co-worker "qa engineer" to write the best test cases and make sure all corner cases are covered.
+        
+            ALWAYS use "co-worker" and NOT "coworker"
 
             Note: If you allow bad code to go out to production, you will lose your job.
             """,

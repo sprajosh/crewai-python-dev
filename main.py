@@ -2,6 +2,7 @@ import os
 
 import agentops
 from crewai import Crew
+from crewai.process import Process
 from dotenv import load_dotenv
 
 from agents import EmployeeAgents
@@ -37,9 +38,11 @@ class CodeEngine:
         manager_task = tasks.manager_task(manager)
 
         crew = Crew(
-            agents=[coder, manager, qa_engineer],
-            tasks=[coder_task, qa_task, manager_task],
+            agents=[coder, qa_engineer],
+            tasks=[manager_task, coder_task, qa_task],
             verbose=True,
+            process=Process.hierarchical,
+            manager_agent=manager,
         )
 
         return crew.kickoff()
@@ -48,7 +51,7 @@ class CodeEngine:
 def main():
     """Main function to initialize the code engine and run the task."""
     task = (
-        "Given a postfix expression, the task is to write a python program to evaluate the postfix expression. "
+        "Write a python program to add 2 numbers. "
         "Do not take more than 1 chance at this."
     )
 

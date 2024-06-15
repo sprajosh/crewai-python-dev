@@ -1,6 +1,6 @@
 from crewai import Agent
 
-MAX_ITERATIONS = 1
+MAX_ITERATIONS = 1000
 
 
 class EmployeeAgents:
@@ -20,6 +20,7 @@ class EmployeeAgents:
             verbose=True,
             memory=True,
             max_iter=MAX_ITERATIONS,
+            allow_delegation=False,
         )
 
     def qa_engineer(self) -> Agent:
@@ -37,6 +38,7 @@ class EmployeeAgents:
             verbose=True,
             memory=True,
             max_iter=MAX_ITERATIONS,
+            allow_delegation=False,
         )
 
     def manager(self) -> Agent:
@@ -53,4 +55,5 @@ class EmployeeAgents:
             verbose=True,
             memory=True,
             max_iter=MAX_ITERATIONS,
+            allow_delegation=True,
         )
